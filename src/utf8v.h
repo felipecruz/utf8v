@@ -27,6 +27,12 @@ int
 int
     valid_third_range(uint8_t byte, uint8_t second, uint8_t third);
 
+int
+    valid_fourth_range(uint8_t byte,
+                       uint8_t second,
+                       uint8_t third,
+                       uint8_t fourth);
+
 #if TEST
 
 #endif /* TEST */

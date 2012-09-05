@@ -48,6 +48,39 @@ void
 }
 
 void
+    test_valid_fourth_range_first_subrange(void)
+{
+
+    uint8_t valid_bytes[] = {0xF0, 0x90, 0x80, 0x80};
+    ENSURE(1 == valid_fourth_range(valid_bytes[0],
+                                   valid_bytes[1],
+                                   valid_bytes[2],
+                                   valid_bytes[3]));
+}
+
+void
+    test_valid_fourth_range_second_subrange(void)
+{
+
+    uint8_t valid_bytes[] = {0xF2, 0x80, 0x80, 0x80};
+    ENSURE(1 == valid_fourth_range(valid_bytes[0],
+                                   valid_bytes[1],
+                                   valid_bytes[2],
+                                   valid_bytes[3]));
+}
+
+void
+    test_valid_fourth_range_third_subrange(void)
+{
+
+    uint8_t valid_bytes[] = {0xF4, 0x80, 0x80, 0x80};
+    ENSURE(1 == valid_fourth_range(valid_bytes[0],
+                                   valid_bytes[1],
+                                   valid_bytes[2],
+                                   valid_bytes[3]));
+}
+
+void
     test_validate_just_null(void)
 {
     uint8_t just_null[] = {0x00};
@@ -86,6 +119,9 @@ int
     thc_addtest(test_invalid_second_range);
     thc_addtest(test_valid_third_range_first_subrange);
     thc_addtest(test_valid_third_range_second_subrange);
+    thc_addtest(test_valid_fourth_range_first_subrange);
+    thc_addtest(test_valid_fourth_range_second_subrange);
+    thc_addtest(test_valid_fourth_range_third_subrange);
     thc_addtest(test_validate_just_null);
     thc_addtest(test_validate_highest_byte);
     thc_addtest(test_validate_ascii_only);

@@ -20,6 +20,20 @@
       value2 >= 0x80 && value2 <= 0xBF && \
       value3 >= 0x80 && value3 <= 0xBF)) ? 1 : 0
 
+#define FOURTH_UTF8_RANGE(value1, value2, value3, value4) \
+    ((value1 == 0xF0 && \
+      value2 >= 0x90 && value2 <= 0xBF && \
+      value3 >= 0x80 && value3 <= 0xBF && \
+      value4 >= 0x80 && value4 <= 0xBF) || \
+     (value1 >= 0xF1 && value1 <= 0xF3 && \
+      value2 >= 0x80 && value2 <= 0xBF && \
+      value3 >= 0x80 && value3 <= 0xBF && \
+      value4 >= 0x80 && value4 <= 0xBF) || \
+     (value1 == 0xF4 && \
+      value2 >= 0x80 && value2 <= 0xBF && \
+      value3 >= 0x80 && value3 <= 0xBF && \
+      value4 >= 0x80 && value4 <= 0xBF)) ? 1 : 0
+
 int
     valid_first_range(uint8_t byte)
 {
@@ -36,6 +50,15 @@ int
     valid_third_range(uint8_t first, uint8_t second, uint8_t third)
 {
     return THIRD_UTF8_RANGE(first, second, third);
+}
+
+int
+    valid_fourth_range(uint8_t first,
+                       uint8_t second,
+                       uint8_t third,
+                       uint8_t fourth)
+{
+    return FOURTH_UTF8_RANGE(first, second, third, fourth);
 }
 
 int
