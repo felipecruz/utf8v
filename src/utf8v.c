@@ -81,24 +81,44 @@ int
 {
     int i;
     int invalid = 0;
-    int missing = 0;
+    int bytes_left = 0;
 
     for (i = 0; i < size; i++) {
+        bytes_left = extract_sequence_length(data[i]);
+        switch (bytes_left) {
+            case 0:
+                if (!FIRST_UTF8_RANGE(data[i])) {
+                    return 1;
+                }
+                break;
+            case 1:
+                if (!SECOND_UTF8_RANGE(data[i], data[i+1])) {
+                    return 1;
+                } else {
+                    i += 1;
+                }
+            break;
 
-        if (!FIRST_UTF8_RANGE(data[i])) {
-            if (i == size-1)
-                return 1;
-            invalid = 1;
-        } 
+            case 2:
+                if (!THIRD_UTF8_RANGE(data[i], data[i+1], data[i+2])) {
+                    return 1;
+                } else {
+                    i += 2;
+                }
+            break;
 
-        //printf("-- %d\n", SECOND_UTF8_RANGE(data[i], data[i+1]));
+            case 3:
+                if (!FOURTH_UTF8_RANGE(data[i], data[i+1],
+                                       data[i+2], data[i+3])) {
+                    return 1;
+                } else {
+                    i += 3;
+                }
+            break;
 
-        if (invalid == 1 && !SECOND_UTF8_RANGE(data[i], data[i+1])) {
+            default:
             return 1;
         }
-
-        if (invalid)
-            return 1;
 
     }
     return 0;

@@ -130,6 +130,48 @@ void
     ENSURE(0 == utf8v_validate(hello, 5));
 }
 
+void
+    test_validate_second_range_sequence(void)
+{
+    uint8_t bytes_sequence[] = {0xC2, 0xBF};
+    ENSURE(0 == utf8v_validate(bytes_sequence, 2));
+}
+
+void
+    test_validate_second_range_sequence_plus_another_byte(void)
+{
+    uint8_t bytes_sequence[] = {0xC2, 0xBF, 0x48};
+    ENSURE(0 == utf8v_validate(bytes_sequence, 3));
+}
+
+void
+    test_validate_third_range_sequence(void)
+{
+    uint8_t bytes_sequence[] = {0xE0, 0xA0, 0xBF};
+    ENSURE(0 == utf8v_validate(bytes_sequence, 3));
+}
+
+void
+    test_validate_third_range_sequence_plus_second_range_sequence(void)
+{
+    uint8_t bytes_sequence[] = {0xE0, 0xA0, 0xBF, 0xC2, 0xBF, 0x48};
+    ENSURE(0 == utf8v_validate(bytes_sequence, 6));
+}
+
+void
+    test_validate_fourth_range_sequence(void)
+{
+    uint8_t bytes_sequence[] = {0xF0, 0x90, 0x80, 0x80};
+    ENSURE(0 == utf8v_validate(bytes_sequence, 4));
+}
+
+void
+    test_validate_fourth_range_sequence_plus_third_range_sequence(void)
+{
+    uint8_t bytes_sequence[] = {0xF0, 0x90, 0x80, 0x80, 0xE0, 0xA0, 0xBF};
+    ENSURE(0 == utf8v_validate(bytes_sequence, 4));
+}
+
 int
     main(int argc, char **argv)
 {
@@ -149,5 +191,11 @@ int
     thc_addtest(test_validate_just_null);
     thc_addtest(test_validate_highest_byte);
     thc_addtest(test_validate_ascii_only);
+    thc_addtest(test_validate_second_range_sequence);
+    thc_addtest(test_validate_second_range_sequence_plus_another_byte);
+    thc_addtest(test_validate_third_range_sequence);
+    thc_addtest(test_validate_third_range_sequence_plus_second_range_sequence);
+    thc_addtest(test_validate_fourth_range_sequence);
+    thc_addtest(test_validate_fourth_range_sequence_plus_third_range_sequence);
     return thc_run(THC_VERBOSE);
 }
