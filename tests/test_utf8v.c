@@ -102,14 +102,6 @@ void
     ENSURE(0 == utf8v_validate(hello, 5));
 }
 
-
-void
-    test_validate_second_range_null(void)
-{
-    uint8_t second_range_null[] = {0xC0, 0x00};
-    ENSURE(0 == utf8v_validate(second_range_null, 2));
-}
-
 int
     main(int argc, char **argv)
 {
@@ -125,6 +117,5 @@ int
     thc_addtest(test_validate_just_null);
     thc_addtest(test_validate_highest_byte);
     thc_addtest(test_validate_ascii_only);
-    thc_addtest(test_validate_second_range_null);
     return thc_run(THC_VERBOSE);
 }
