@@ -2,7 +2,19 @@
 
 /*
  * legal utf-8 byte sequence
- * http://www.unicode.org/versions/corrigendum1.html
+ * http://www.unicode.org/versions/Unicode6.0.0/ch03.pdf - page 94
+ *
+ *  Code Points        1st       2s       3s       4s
+ * U+0000..U+007F     00..7F
+ * U+0080..U+07FF     C2..DF   80..BF
+ * U+0800..U+0FFF     E0       A0..BF   80..BF
+ * U+1000..U+CFFF     E1..EC   80..BF   80..BF
+ * U+D000..U+D7FF     ED       80..9F   80..BF
+ * U+E000..U+FFFF     EE..EF   80..BF   80..BF
+ * U+10000..U+3FFFF   F0       90..BF   80..BF   80..BF
+ * U+40000..U+FFFFF   F1..F3   80..BF   80..BF   80..BF
+ * U+100000..U+10FFFF F4       80..8F   80..BF   80..BF
+ *
  */
 
 #define FIRST_UTF8_RANGE(value) \
@@ -16,7 +28,13 @@
     ((value1 == 0xE0 && \
       value2 >= 0xA0 && value2 <= 0xBF && \
       value3 >= 0x80 && value3 <= 0xBF) || \
-     (value1 >= 0xE1 && value1 <= 0xEF && \
+     (value1 >= 0xE1 && value1 <= 0xEC && \
+      value2 >= 0x80 && value2 <= 0xBF && \
+      value3 >= 0x80 && value2 <= 0xBF) || \
+     (value1 == 0xED && \
+      value2 >= 0x80 && value2 <= 0x9F && \
+      value3 >= 0x80 && value2 <= 0xBF) || \
+     (value1 >= 0xEE && value1 <= 0xEF && \
       value2 >= 0x80 && value2 <= 0xBF && \
       value3 >= 0x80 && value3 <= 0xBF)) ? 1 : 0
 
