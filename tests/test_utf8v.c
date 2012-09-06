@@ -81,6 +81,34 @@ void
 }
 
 void
+    test_extract_sequence_length_zero_length(void)
+{
+    uint8_t valid_byte = 0x00;
+    ENSURE(0 == extract_sequence_length(valid_byte));
+}
+
+void
+    test_extract_sequence_length_one_length(void)
+{
+    uint8_t valid_byte = 0xC2;
+    ENSURE(1 == extract_sequence_length(valid_byte));
+}
+
+void
+    test_extract_sequence_length_two_length(void)
+{
+    uint8_t valid_byte = 0xE0;
+    ENSURE(2 == extract_sequence_length(valid_byte));
+}
+
+void
+    test_extract_sequence_length_three_length(void)
+{
+    uint8_t valid_byte = 0xF4;
+    ENSURE(3 == extract_sequence_length(valid_byte));
+}
+
+void
     test_validate_just_null(void)
 {
     uint8_t just_null[] = {0x00};
@@ -114,6 +142,10 @@ int
     thc_addtest(test_valid_fourth_range_first_subrange);
     thc_addtest(test_valid_fourth_range_second_subrange);
     thc_addtest(test_valid_fourth_range_third_subrange);
+    thc_addtest(test_extract_sequence_length_zero_length);
+    thc_addtest(test_extract_sequence_length_one_length);
+    thc_addtest(test_extract_sequence_length_two_length);
+    thc_addtest(test_extract_sequence_length_three_length);
     thc_addtest(test_validate_just_null);
     thc_addtest(test_validate_highest_byte);
     thc_addtest(test_validate_ascii_only);

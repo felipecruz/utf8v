@@ -62,6 +62,21 @@ int
 }
 
 int
+    extract_sequence_length(uint8_t first_byte)
+{
+    if (first_byte >> 3 == 0x1E) {
+        return 3;
+    } else if (first_byte >> 4 == 0x0E) {
+        return 2;
+    } else if (first_byte >> 5 == 0x06) {
+        return 1;
+    } else if (first_byte >> 7 == 0x00) {
+        return 0;
+    }
+    return -1;
+}
+
+int
     utf8v_validate(uint8_t *data, int size)
 {
     int i;

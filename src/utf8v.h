@@ -32,6 +32,8 @@ int
                        uint8_t second,
                        uint8_t third,
                        uint8_t fourth);
+int
+    extract_sequence_length(uint8_t first_byte);
 
 #if TEST
 
