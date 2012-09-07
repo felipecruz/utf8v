@@ -98,7 +98,6 @@ int
     utf8v_validate(uint8_t *data, int size)
 {
     int i;
-    int invalid = 0;
     int bytes_left = 0;
 
     for (i = 0; i < size; i++) {
