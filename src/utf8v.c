@@ -100,6 +100,10 @@ int
     int i;
     int bytes_left = 0;
 
+    if (size == 0) {
+        return -1;
+    }
+
     for (i = 0; i < size; i++) {
         bytes_left = extract_sequence_length(data[i]);
         switch (bytes_left) {
@@ -109,6 +113,9 @@ int
                 }
                 break;
             case 1:
+                if (i+1 >= size) {
+                    return -1;
+                }
                 if (!SECOND_UTF8_RANGE(data[i], data[i+1])) {
                     return 1;
                 } else {
@@ -117,6 +124,9 @@ int
             break;
 
             case 2:
+                if (i+1 >= size || i+2 >= size) {
+                    return -1;
+                }
                 if (!THIRD_UTF8_RANGE(data[i], data[i+1], data[i+2])) {
                     return 1;
                 } else {
@@ -125,8 +135,13 @@ int
             break;
 
             case 3:
-                if (!FOURTH_UTF8_RANGE(data[i], data[i+1],
-                                       data[i+2], data[i+3])) {
+                if (i+1 >= size || i+2 >= size || i+3 >= size) {
+                    return -1;
+                }
+                if (!FOURTH_UTF8_RANGE(data[i],
+                                       data[i+1],
+                                       data[i+2],
+                                       data[i+3])) {
                     return 1;
                 } else {
                     i += 3;
