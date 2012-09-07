@@ -17,39 +17,39 @@
  *
  */
 
-#define FIRST_UTF8_RANGE(value) \
+#define FIRST_UTF8_RANGE(value)                            \
     (value <= 0x7F) ? 1 : 0
 
-#define SECOND_UTF8_RANGE(value1, value2) \
-    (value1 >= 0xC2 && value1 <= 0xDF) && \
+#define SECOND_UTF8_RANGE(value1, value2)                  \
+    (value1 >= 0xC2 && value1 <= 0xDF) &&                  \
     (value2 >= 0x80 && value2 <= 0xBF) ? 1 : 0
 
-#define THIRD_UTF8_RANGE(value1, value2, value3) \
-    ((value1 == 0xE0 && \
-      value2 >= 0xA0 && value2 <= 0xBF && \
-      value3 >= 0x80 && value3 <= 0xBF) || \
-     (value1 >= 0xE1 && value1 <= 0xEC && \
-      value2 >= 0x80 && value2 <= 0xBF && \
-      value3 >= 0x80 && value2 <= 0xBF) || \
-     (value1 == 0xED && \
-      value2 >= 0x80 && value2 <= 0x9F && \
-      value3 >= 0x80 && value2 <= 0xBF) || \
-     (value1 >= 0xEE && value1 <= 0xEF && \
-      value2 >= 0x80 && value2 <= 0xBF && \
+#define THIRD_UTF8_RANGE(value1, value2, value3)           \
+    ((value1 == 0xE0                    &&                 \
+      value2 >= 0xA0 && value2 <= 0xBF  &&                 \
+      value3 >= 0x80 && value3 <= 0xBF) ||                 \
+     (value1 >= 0xE1 && value1 <= 0xEC  &&                 \
+      value2 >= 0x80 && value2 <= 0xBF  &&                 \
+      value3 >= 0x80 && value2 <= 0xBF) ||                 \
+     (value1 == 0xED                    &&                 \
+      value2 >= 0x80 && value2 <= 0x9F  &&                 \
+      value3 >= 0x80 && value2 <= 0xBF) ||                 \
+     (value1 >= 0xEE && value1 <= 0xEF  &&                 \
+      value2 >= 0x80 && value2 <= 0xBF  &&                 \
       value3 >= 0x80 && value3 <= 0xBF)) ? 1 : 0
 
-#define FOURTH_UTF8_RANGE(value1, value2, value3, value4) \
-    ((value1 == 0xF0 && \
-      value2 >= 0x90 && value2 <= 0xBF && \
-      value3 >= 0x80 && value3 <= 0xBF && \
-      value4 >= 0x80 && value4 <= 0xBF) || \
-     (value1 >= 0xF1 && value1 <= 0xF3 && \
-      value2 >= 0x80 && value2 <= 0xBF && \
-      value3 >= 0x80 && value3 <= 0xBF && \
-      value4 >= 0x80 && value4 <= 0xBF) || \
-     (value1 == 0xF4 && \
-      value2 >= 0x80 && value2 <= 0xBF && \
-      value3 >= 0x80 && value3 <= 0xBF && \
+#define FOURTH_UTF8_RANGE(value1, value2, value3, value4)  \
+    ((value1 == 0xF0 &&                                    \
+      value2 >= 0x90 && value2 <= 0xBF  &&                 \
+      value3 >= 0x80 && value3 <= 0xBF  &&                 \
+      value4 >= 0x80 && value4 <= 0xBF) ||                 \
+     (value1 >= 0xF1 && value1 <= 0xF3  &&                 \
+      value2 >= 0x80 && value2 <= 0xBF  &&                 \
+      value3 >= 0x80 && value3 <= 0xBF  &&                 \
+      value4 >= 0x80 && value4 <= 0xBF) ||                 \
+     (value1 == 0xF4                    &&                 \
+      value2 >= 0x80 && value2 <= 0xBF  &&                 \
+      value3 >= 0x80 && value3 <= 0xBF  &&                 \
       value4 >= 0x80 && value4 <= 0xBF)) ? 1 : 0
 
 int
