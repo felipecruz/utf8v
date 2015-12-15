@@ -48,7 +48,7 @@
       value3 >= 0x80 && value3 <= 0xBF  &&                 \
       value4 >= 0x80 && value4 <= 0xBF) ||                 \
      (value1 == 0xF4                    &&                 \
-      value2 >= 0x80 && value2 <= 0xBF  &&                 \
+      value2 >= 0x80 && value2 <= 0x8F  &&                 \
       value3 >= 0x80 && value3 <= 0xBF  &&                 \
       value4 >= 0x80 && value4 <= 0xBF)) ? 1 : 0
 
